@@ -7,6 +7,7 @@
 
 #include <QDir>
 #include <yaml-cpp/yaml.h>
+#include <QSize>
 
 class ConfigManager
 {
@@ -20,7 +21,7 @@ public:
 
     YAML::Node yaml_config;
 private:
-    QSize m_bordersize();
+    QSize m_bordersize;
 
     ConfigManager() = default;
     ConfigManager(const ConfigManager&) = delete;

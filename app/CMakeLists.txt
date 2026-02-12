@@ -1,5 +1,5 @@
 
-set(SRC_FILES
+set(APP_FILES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
@@ -10,7 +10,12 @@ set(SRC_FILES
         configmanager.h
 )
 
-add_library(app_core STATIC ${SRC_FILES})
+add_library(app_core STATIC ${APP_FILES})
+
+target_link_libraries(app_core
+        PRIVATE
+        project_options
+)
 
 
 target_link_libraries(app_core

@@ -2,6 +2,7 @@
 #define FORMSETTING_H
 
 #include <QWidget>
+#include "configmanager.h"
 
 namespace Ui {
 class FormSetting;
@@ -15,6 +16,10 @@ public:
     explicit FormSetting(QWidget *parent = nullptr);
     ~FormSetting();
 
+    void LoadConfig();
+
+    void onPbSaveClicked();
+    void onPbCancelClicked();
 private:
     Ui::FormSetting *ui;
 

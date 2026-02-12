@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 
+#include  "formsetting.h"
 #include  "debug_log.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void OpenFrmSetting();
 
     void load_image(QString folderPath);
     void onPbLoadClicked();

@@ -42,6 +42,15 @@ bool ConfigManager::load(const QString& path)
     try
     {
         yaml_config = YAML::LoadFile(path.toStdString());
+
+        YAML::Node bordersize_node = yaml_config["Calibration"]["border_size"];
+
+        if (!bordersize_node || !bordersize_node.IsSequence() || bordersize_node.size() != 2)
+            throw std::runtime_error("border_size format error");
+
+        m_bordersize.setWidth(bordersize_node[0].as<int>()) ;
+        m_bordersize.setHeight(bordersize_node[1].as<int>());
+
     }
     catch (const YAML::Exception& e)
     {
@@ -53,4 +62,9 @@ bool ConfigManager::load(const QString& path)
 
 
     return true;
+}
+
+QSize ConfigManager::bordersize()
+{
+    return m_bordersize;
 }

@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
         QAbstractItemView::EditKeyPressed);
 
     ui->lblPlayer->setAlignment(Qt::AlignCenter);
-    ui->lblPlayer->setStyleSheet("border 1px");
+    ui->lblPlayer->setStyleSheet("background-color: rgb(222, 221, 218);border: 1px solid black;");
 
     connect(ui->pbLoad,&QPushButton::clicked,this,&MainWindow::onPbLoadClicked);
     connect(ui->pbRename,&QPushButton::clicked,this,&MainWindow::onPbRenameClicked);
@@ -23,11 +23,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->lWList, &QListWidget::itemChanged,
             this, &MainWindow::onItemNameChanged);
     connect(ui->lWList,&QListWidget::currentItemChanged,this,&MainWindow::onCurrentItemChanged);
+
+    connect(ui->pbSet,&QPushButton::clicked,this,&MainWindow::OpenFrmSetting);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::OpenFrmSetting()
+{
+    FormSetting *setting = new FormSetting();
+    setting->show();
 }
 
 void MainWindow::onPbCalcClicked()
@@ -85,7 +93,7 @@ void MainWindow::onPbRenameClicked()
 
     QVector<RenamePair> renameList;
 
-    // 1️⃣ 生成目标文件名（不立即重命名）
+    // 生成目标文件名（不立即重命名）
     for (int i = 0; i < ui->lWList->count(); ++i)
     {
         QListWidgetItem *item = ui->lWList->item(i);
@@ -105,7 +113,7 @@ void MainWindow::onPbRenameClicked()
         renameList.push_back({ oldInfo.absoluteFilePath(), newPath });
     }
 
-    // 2️⃣ 第一阶段：改成临时名，避免冲突
+    // 第一阶段：改成临时名，避免冲突
     for (int i = 0; i < renameList.size(); ++i)
     {
         QString tempPath = renameList[i].oldPath + ".tmp_rename";
@@ -113,7 +121,7 @@ void MainWindow::onPbRenameClicked()
         renameList[i].oldPath = tempPath;
     }
 
-    // 3️⃣ 第二阶段：改成最终名
+    // 第二阶段：改成最终名
     for (int i = 0; i < renameList.size(); ++i)
     {
         if (!QFile::rename(renameList[i].oldPath, renameList[i].newPath))
